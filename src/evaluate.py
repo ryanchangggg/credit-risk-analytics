@@ -28,7 +28,7 @@ Usage:
     # Full report
     evaluator.summary_report(y_true, y_pred_proba, save_path='reports/model_card.md')
 
-Author: Machine Learning Engineer, Horizon Lending Inc.
+Author: [Portfolio Project]
 Date: July 2026
 """
 

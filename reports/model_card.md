@@ -104,7 +104,7 @@ A formal fairness assessment has not been completed. Model features include `COD
 
 ## Intended Use
 
-- **Primary**: Decision-support tool for loan underwriting at Horizon Lending Inc.
+- **Primary**: Decision-support tool for loan underwriting
 - **Secondary**: Collections prioritization on the funded portfolio
 - **Not intended for**: Automated lending decisions without human review, use in portfolios with substantially different risk profiles, or use as the sole basis for adverse action notifications
 

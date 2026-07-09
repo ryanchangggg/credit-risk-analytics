@@ -1,7 +1,7 @@
 # Credit Risk Analytics — Power BI Executive Dashboard Design
 
 > **Dashboard File:** `dashboard/credit_risk.pbix`
-> **Target Audience:** CRO, CFO, CEO, Head of Underwriting, Head of Collections
+> **Target Audience:** Risk Committee, Finance, Underwriting, Collections
 > **Data Source:** Processed feature table + model predictions (from `data/processed/`)
 > **Refresh Cadence:** Daily automated
 
@@ -56,7 +56,7 @@ Precision at 5%       = VAR top5 = CALCULATETABLE(TOPN(0.05*Total Applications, 
 
 ---
 
-## Page 1: Executive Summary (CRO / CEO / Board)
+## Page 1: Executive Summary
 
 **Question answered:** *"How risky is our portfolio right now, and are we on track?"*
 
@@ -64,7 +64,7 @@ Precision at 5%       = VAR top5 = CALCULATETABLE(TOPN(0.05*Total Applications, 
 
 ```
 ┌────────────────────────────────────────────────────────────────────┐
-│  HEADER: "Horizon Lending — Portfolio Risk Dashboard"  |  Date    │
+│  HEADER: "Portfolio Risk Dashboard"  |  Date    │
 ├──────────┬──────────┬──────────┬──────────┬──────────┬────────────┤
 │   KPI    │   KPI    │   KPI    │   KPI    │   KPI    │   KPI      │
 │ Total    │ Approval │ Default  │ Net      │ Risk-Adj │ Expected   │

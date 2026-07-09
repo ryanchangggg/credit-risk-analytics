@@ -31,7 +31,7 @@ Usage:
     cv_scores = results['cv_scores']
     leaderboard = results['leaderboard']
 
-Author: Machine Learning Engineer, Horizon Lending Inc.
+Author: [Portfolio Project]
 Date: July 2026
 """
 

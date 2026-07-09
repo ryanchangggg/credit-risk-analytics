@@ -28,7 +28,7 @@ Usage:
     X_train = pipeline.fit_transform(train_tables)
     X_test = pipeline.transform(test_tables)
 
-Author: Senior Data Analyst, Horizon Lending Inc.
+Author: [Portfolio Project]
 Date: July 2026
 """
 

@@ -18,7 +18,7 @@ Typical usage:
     assessment = scorer.assess_risk(applicant_df)
     print(assessment[["SK_ID_CURR", "pd_score", "risk_bucket", "decision"]].head())
 
-Author: Machine Learning Engineer, Horizon Lending Inc.
+Author: [Portfolio Project]
 Date: July 2026
 """
 

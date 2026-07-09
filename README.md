@@ -1,4 +1,4 @@
-# Credit Risk Analytics - Horizon Lending Inc.
+# Credit Risk Analytics
 
 A portfolio project simulating a real-world credit risk analytics workflow for a mid-sized digital consumer-lending platform. Built for graduate school applications and data analyst/data scientist internship opportunities. The full pipeline is implemented end-to-end across 6 executed Jupyter notebooks.
 
@@ -6,7 +6,7 @@ A portfolio project simulating a real-world credit risk analytics workflow for a
 
 ## Project Overview
 
-This project simulates the work of a data scientist at **Horizon Lending Inc.**, a mid-sized digital consumer-lending platform targeting near-prime borrowers (credit scores 580-680). The goal is to build an end-to-end credit risk analytics pipeline - from business understanding and data exploration through model building, explainability, business simulation, and an interactive dashboard - and translate model outputs into dollar-denominated business decisions.
+This project simulates the work of a data scientist at a mid-sized digital consumer-lending platform, a mid-sized digital consumer-lending platform targeting near-prime borrowers (credit scores 580-680). The goal is to build an end-to-end credit risk analytics pipeline - from business understanding and data exploration through model building, explainability, business simulation, and an interactive dashboard - and translate model outputs into dollar-denominated business decisions.
 
 The project prioritizes **business value over model complexity**. Every technical decision is tied to a business outcome: reducing losses, improving portfolio profitability, or meeting regulatory requirements. The pipeline is fully executed with actual results, figures, and dashboard exports.
 
@@ -43,7 +43,7 @@ Top-5% flagged accounts: 9.8% of defaults caught early -> **$52,575 net benefit*
 
 ## Business Problem
 
-Horizon Lending issues unsecured personal loans ($1,000-$35,000, 12-60 month terms) to near-prime borrowers (credit scores 580-680). This segment is underserved by traditional banks but carries elevated default risk (~8% default rate).
+The simulated platform issues unsecured personal loans ($1,000-$35,000, 12-60 month terms) to near-prime borrowers (credit scores 580-680). This segment is underserved by traditional banks but carries elevated default risk (~8% default rate).
 
 **Key questions this project answers:**
 

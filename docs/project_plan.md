@@ -1,7 +1,5 @@
 # Credit Risk Analytics Portfolio Project — Blueprint
 
-> **Author:** Senior Data Scientist (Simulation)
-> **Date:** July 2026
 > **Purpose:** Graduate school application & data analyst internship portfolio piece
 
 ---
@@ -20,7 +18,7 @@
 
 ### 1.1 Lending Scenario
 
-**Lender:** *Horizon Lending Inc.* — a mid-sized digital consumer-lending platform operating in the United States. Horizon offers unsecured personal loans (USD $1,000–$35,000) with terms of 12–60 months. Borrowers apply online; decisions are made within minutes.
+**Lender:** A mid-sized digital consumer-lending platform operating in the United Statesunsecured personal loans (USD $1,000–$35,000) with terms of 12–60 months. Borrowers apply online; decisions are made within minutes.
 
 Horizon's portfolio currently holds ~50,000 active loans. The company targets the "near-prime" segment — borrowers with credit scores between 580 and 680 — a population that is underserved by traditional banks but carries higher default risk.
 
@@ -139,7 +137,7 @@ Below is the end-to-end workflow. Each stage lists purpose, expected outputs, an
 **Activities:**
 - Define the credit risk policy context.
 - Translate business objectives into ML metrics (AUC, precision@k, expected dollar loss).
-- Establish success criteria with stakeholders (CRO, Underwriting).
+- Establish success criteria with stakeholders.
 - Plan for regulatory constraints (fair lending, explainability).
 
 **Expected Outputs:**
@@ -472,12 +470,12 @@ credit-risk-analytics/
 | 3 | EDA Notebook | `notebooks/02_eda.ipynb` | All stakeholders |
 | 4 | Feature Engineering Notebook | `notebooks/03_feature_engineering.ipynb` | Technical peers |
 | 5 | Model Building Notebook | `notebooks/04_model_building.ipynb` | Data scientists |
-| 6 | Model Evaluation Notebook | `notebooks/05_model_evaluation.ipynb` | CRO, risk team |
+| 6 | Model Evaluation Notebook | `notebooks/05_model_evaluation.ipynb` | Risk team |
 | 7 | Model Explainability Notebook | `notebooks/06_model_explainability.ipynb` | Compliance, CRO |
 | 8 | Business Simulation Notebook | `notebooks/07_business_simulation.ipynb` | Finance, CRO |
 | 9 | Reusable Python Modules | `src/*.py` | Engineering team |
 | 10 | Unit Tests | `tests/*.py` | QA / engineering |
-| 11 | Interactive Dashboard | `dashboard/` | CRO, exec team |
+| 11 | Interactive Dashboard | `dashboard/` | Executive team |
 | 12 | Model Card | `reports/model_card.md` | Compliance |
 | 13 | Fairness Report | `reports/fairness_report.md` | Compliance, legal |
 | 14 | Simulation Results | `reports/simulation_results.md` | Finance |
