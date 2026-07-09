@@ -180,3 +180,4 @@ Business Understanding ──> Data Cleaning ──> EDA ──> Feature Enginee
 ---
 
 *Started: July 2026. This project is a work in progress. See [`docs/project_plan.md`](docs/project_plan.md) for the full design document.*
+
