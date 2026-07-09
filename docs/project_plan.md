@@ -20,7 +20,7 @@
 
 **Lender:** A mid-sized digital consumer-lending platform operating in the United Statesunsecured personal loans (USD $1,000–$35,000) with terms of 12–60 months. Borrowers apply online; decisions are made within minutes.
 
-Horizon's portfolio currently holds ~50,000 active loans. The company targets the "near-prime" segment — borrowers with credit scores between 580 and 680 — a population that is underserved by traditional banks but carries higher default risk.
+The platform's portfolio currently holds ~50,000 active loans. The company targets the "near-prime" segment — borrowers with credit scores between 580 and 680 — a population that is underserved by traditional banks but carries higher default risk.
 
 ### 1.2 Why Predicting Default Is Valuable
 

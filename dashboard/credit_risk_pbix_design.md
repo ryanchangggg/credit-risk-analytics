@@ -450,14 +450,14 @@ Precision at 5%       = VAR top5 = CALCULATETABLE(TOPN(0.05*Total Applications, 
 
 | Element | Color | Hex |
 |---|---|---|
-| Primary (Horizon Blue) | Dark blue | #003366 |
+| Primary (Primary Blue) | Dark blue | #003366 |
 | Secondary (Risk Red) | Red | #CC3333 |
 | Tertiary (Safe Green) | Green | #339933 |
 | Accent (Warning Amber) | Amber | #FF9933 |
 | Background | Light grey | #F5F5F5 |
 | Grid / Border | Medium grey | #CCCCCC |
 | Text (Primary) | Dark grey | #333333 |
-| Text (KPI Value) | Horizon Blue | #003366 |
+| Text (KPI Value) | Primary Blue | #003366 |
 | Positive Delta | Safe Green | #339933 |
 | Negative Delta | Risk Red | #CC3333 |
 
