@@ -70,11 +70,6 @@ Thumbs.db
 reports/figures/
 
 # =============================================================================
-# Duplicate notebook copies (can be regenerated from execution/ if needed)
-# =============================================================================
-notebooks/
-
-# =============================================================================
 # Dashboard exports (regenerable via explainability_dashboard notebook)
 # =============================================================================
 dashboard/exports/
