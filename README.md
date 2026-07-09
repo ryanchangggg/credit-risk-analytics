@@ -2,6 +2,40 @@
 
 A portfolio project simulating a real-world credit risk analytics workflow for a mid-sized digital consumer-lending platform. Built for graduate school applications and data analyst/data scientist internship opportunities. The full pipeline is implemented end-to-end across 6 executed Jupyter notebooks.
 
+## Quick Start
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/ryanchangggg/credit-risk-analytics.git
+cd credit-risk-analytics
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Download the Home Credit Default Risk dataset
+#    Place application_train.csv in data/raw/
+#    Download from: https://www.kaggle.com/competitions/home-credit-default-risk/data
+
+# 4. Explore the pipeline (executed notebooks with full outputs)
+jupyter notebook execution/
+
+# 5. Run tests
+make test
+
+# 6. Score new applicants with trained model
+python src/inference.py data/raw/application_train.csv --output scored.csv
+
+# 7. Or reproduce the full pipeline
+make reproduce
+```
+
+### Viewing Reports
+Pre-built reports are available in the \`reports/\` folder:
+* [\`reports/Credit_Risk_Analytics_Report.pdf\`](reports/Credit_Risk_Analytics_Report.pdf) — Comprehensive end-to-end report (11 chapters + appendices)
+* [\`reports/Credit_Risk_Analytics_Deck.pdf\`](reports/Credit_Risk_Analytics_Deck.pdf) — 15-slide executive presentation
+* [\`reports/model_card.md\`](reports/model_card.md) — Model card with performance metrics and limitations
+* [\`reports/simulation_results.md\`](reports/simulation_results.md) — Business simulation breakdown
+
 ---
 
 ## Project Overview
