@@ -1,32 +1,59 @@
-# Credit Risk Analytics
+# Credit Risk Analytics - Horizon Lending Inc.
 
-A portfolio project simulating a real-world credit risk analytics workflow for a commercial lending platform. Built for graduate school applications and data analyst/data scientist internship opportunities.
+A portfolio project simulating a real-world credit risk analytics workflow for a mid-sized digital consumer-lending platform. Built for graduate school applications and data analyst/data scientist internship opportunities. The full pipeline is implemented end-to-end across 6 executed Jupyter notebooks.
 
 ---
 
 ## Project Overview
 
-This project simulates the work of a data scientist at **Horizon Lending Inc.**, a mid-sized digital consumer-lending platform. The goal is to build an end-to-end credit risk analytics pipeline — from business understanding and data exploration through model building, explainability, business simulation, and an interactive dashboard.
+This project simulates the work of a data scientist at **Horizon Lending Inc.**, a mid-sized digital consumer-lending platform targeting near-prime borrowers (credit scores 580-680). The goal is to build an end-to-end credit risk analytics pipeline - from business understanding and data exploration through model building, explainability, business simulation, and an interactive dashboard - and translate model outputs into dollar-denominated business decisions.
 
-The project prioritizes **business value over model complexity**. Every technical decision is tied to a business outcome: reducing losses, improving portfolio profitability, or meeting regulatory requirements.
+The project prioritizes **business value over model complexity**. Every technical decision is tied to a business outcome: reducing losses, improving portfolio profitability, or meeting regulatory requirements. The pipeline is fully executed with actual results, figures, and dashboard exports.
 
-Full project plan: [`docs/project_plan.md`](docs/project_plan.md)
+Full project plan: [docs/project_plan.md](docs/project_plan.md)
+
+---
+
+## Key Results
+
+| Metric | Target | Actual | Status |
+|---|---|---|---|
+| AUC-ROC | >= 0.80 | **0.768** | Within ~4 points of target |
+| Gini Coefficient | >= 0.60 | **0.536** | 2 x AUC - 1 |
+| Optimal Threshold (F2) | - | **0.485** | Optimized for recall-biased credit risk |
+| Precision at threshold | >= 0.40 | **0.171** | Reflects 8% base rate constraint |
+| Recall at threshold | >= 0.70 | **0.697** | Captures ~70% of all defaults |
+
+### Business Simulation ($625M Portfolio)
+
+| Policy | Approval Rate | Default Rate | Net Profit | Risk-Adj Return |
+|---|---|---|---|---|
+| Approve Everyone | 100.0% | 8.11% | $129.1M | 20.66% |
+| **AI Model (optimal, t=0.485)** | **67.1%** | **3.62%** | **$112.6M** | **26.83%** |
+| Conservative (t=0.30) | 40.1% | 2.24% | $72.0M | 28.73% |
+| Aggressive (t=0.70) | 89.4% | 5.77% | $133.4M | 23.87% |
+| Current Rules (rule-based) | 4.6% | 2.50% | $8.1M | 28.30% |
+
+**Bottom line:** The AI model generates **$104.5M more profit** than the current rule-based underwriting policy - a **1,298% improvement** - while funding 67% of applicants rather than just 4.6%.
+
+### Collections Impact
+Top-5% flagged accounts: 9.8% of defaults caught early -> **$52,575 net benefit** after intervention costs.
 
 ---
 
 ## Business Problem
 
-Horizon Lending issues unsecured personal loans ($1,000–$35,000, 12–60 month terms) to near-prime borrowers (credit scores 580–680). This segment is underserved by traditional banks but carries elevated default risk (~8% default rate).
+Horizon Lending issues unsecured personal loans ($1,000-$35,000, 12-60 month terms) to near-prime borrowers (credit scores 580-680). This segment is underserved by traditional banks but carries elevated default risk (~8% default rate).
 
 **Key questions this project answers:**
 
 1. Which borrower characteristics most strongly predict default?
-2. Can we build a model that outperforms simple credit-score thresholds?
-3. How much money can the model save (or earn) compared to current underwriting policy?
-4. Can we explain model decisions to regulators and borrowers?
+2. Can we build a model that outperforms simple credit-score thresholds? **(Yes: AUC 0.768 vs. EXT_SOURCE-only baseline)**
+3. How much money can the model save (or earn) compared to current underwriting policy? **(+$104.5M / 1,298%)**
+4. Can we explain model decisions to regulators and borrowers? **(SHAP, PDP, force plots, waterfalls)**
 5. How should the portfolio be segmented for active risk management?
 
-**Business impact:** A 5-point improvement in AUC (0.75 → 0.80) is estimated to reduce net charge-offs by 15–20%, worth approximately $2–3 million annually for a portfolio of this size.
+**Business impact:** A 5-point improvement in AUC (0.75 -> 0.80) is estimated to reduce net charge-offs by 15-20%, worth approximately $2-3 million annually for a portfolio of this size.
 
 ---
 
@@ -37,30 +64,29 @@ Horizon Lending issues unsecured personal loans ($1,000–$35,000, 12–60 month
 | Attribute | Detail |
 |---|---|
 | **Source** | [Kaggle: Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/data) |
-| **Size** | ~300,000 applicants, ~120 features across 8 tables |
-| **Target** | `TARGET` — 1 if defaulted, 0 if repaid (8% default rate) |
-| **Tables** | `application_train`, `application_test`, `bureau`, `bureau_balance`, `previous_application`, `installments_payments`, `POS_CASH_balance`, `credit_card_balance` |
-| **Data richness** | Applicant demographics, external credit bureau scores, past loan repayment history, installment-level payment behavior |
+| **Size Used** | 307,511 applicants, 182 engineered features from the main applicant table |
+| **Target** | `TARGET` - 1 if defaulted, 0 if repaid (8% default rate) |
+| **Features** | Applicant demographics, external credit scores, ratio-based financial health metrics, interaction terms, frequency-encoded categoricals |
+
+**Note:** This implementation uses the main applicant table as a starting point, focusing on deep feature engineering from applicant-level data. Multi-table aggregation (bureau, previous applications, installments) is designed in the pipeline skeletons but was exercised through the single-table feature engineering track in the executed notebooks.
 
 ### Key Feature Groups
 
-| Group | Examples | Business Logic |
+| Group | Examples (Top-5 by SHAP) | Business Logic |
 |---|---|---|
-| Applicant Profile | Income, age, employment length, education, family status | Capacity and stability to repay |
-| External Scores | `EXT_SOURCE_1`, `EXT_SOURCE_2`, `EXT_SOURCE_3` | Third-party creditworthiness assessments |
-| Bureau History | Past inquiries, outstanding debt, delinquencies across credit ecosystem | Total indebtedness and payment discipline |
-| Previous Applications | Past loan amounts, statuses, days past due | Strongest predictor of future repayment behavior |
-| Installment Behavior | Ratio of late payments, average days late | Granular payment discipline signal |
+| External Scores | EXT_MEAN (#1, 0.47 SHAP) | Composite external creditworthiness |
+| Financial Ratios | ANNUITY_RATE (#2, 0.17), AMT_GOODS_PRICE (#3, 0.14) | Debt burden relative to income |
+| Profile | CODE_GENDER_M, EDU_ORDINAL, AGE_YEARS | Demographic stability signals |
+| Credit History | EXT_SOURCE_3, EXT_2x3 (interaction) | Payment discipline from bureau data |
 
 ### Data Challenges
 
 | Challenge | Handling Strategy |
 |---|---|
-| Multi-table joins | SQL-style aggregation into flat training frame |
-| High missingness (>60% in some features) | Imputation + missing-indicator flags |
-| Class imbalance (8% default) | Threshold tuning, class weights |
-| Outliers (extreme incomes, ages) | Domain-informed capping |
-| Look-ahead bias risk | Temporal train/test split verification |
+| High missingness (>60% in some features) | Median/mode imputation + 62 missing-indicator flags |
+| Class imbalance (8% default) | F2-threshold tuning, class weights in training |
+| Outliers (extreme incomes, ages) | Domain-informed capping (P0.1-P99.9) |
+| DAYS_EMPLOYED artifact | 365,243 days = unemployed flag created (affects 18% of applicants) |
 
 ---
 
@@ -70,113 +96,132 @@ Horizon Lending issues unsecured personal loans ($1,000–$35,000, 12–60 month
 credit-risk-analytics/
 │
 ├── data/
-│   ├── raw/                     # Original CSV files from Kaggle
-│   └── processed/               # Cleaned and feature-engineered data
+│   ├── raw/                     # application_train.csv (gitignored)
+│   └── processed/               # Parquet files: X_features, y_target, full_processed
 │
-├── notebooks/
-│   ├── 01_eda.ipynb             # Exploratory data analysis
-│   ├── 02_data_cleaning.ipynb   # Data cleaning and quality checks
-│   ├── 03_feature_engineering.ipynb  # Feature creation and aggregation
-│   ├── 04_model_building.ipynb  # Model training and hyperparameter tuning
-│   ├── 05_model_evaluation.ipynb     # Rigorous evaluation and calibration
-│   ├── 06_model_explainability.ipynb # SHAP, PDP, fairness analysis
-│   └── 07_business_simulation.ipynb  # Profit simulation and threshold optimization
+├── execution/                   # Executed notebooks with full outputs
+│   ├── 01_business_understanding.ipynb     # Problem framing, stakeholder mapping
+│   ├── 02_exploratory_data_analysis.ipynb  # EDA, patterns, risk drivers
+│   ├── 03_feature_engineering.ipynb        # 182-feature pipeline
+│   ├── 04_modeling.ipynb                  # 5-model training + LightGBM selection
+│   ├── 04_explainability.ipynb            # SHAP, PDP, permutation importance
+│   ├── 05_business_simulation.ipynb       # Profit simulation, threshold optimization
+│   └── 06_explainability_dashboard.ipynb  # Dashboard exports + segment analysis
 │
 ├── src/
-│   ├── data_loader.py           # Load and cache raw data
-│   ├── data_cleaner.py          # Cleaning utilities
-│   ├── visualization.py         # Reusable plotting functions
-│   ├── feature_engineering.py   # Feature transformation pipeline
-│   ├── feature_aggregator.py    # Multi-table aggregation logic
-│   ├── model.py                 # Training and prediction pipeline
-│   ├── tuning.py                # Hyperparameter optimization
-│   ├── evaluation.py            # Metrics and validation
-│   ├── explainability.py        # SHAP and interpretability tools
-│   └── business_simulation.py   # Profit and scenario analysis
+│   ├── train.py                 # Model training pipeline (design doc)
+│   ├── preprocess.py            # Feature engineering pipeline (design doc)
+│   └── evaluate.py              # Model evaluation framework (design doc)
 │
-├── tests/
-│   ├── test_data_loader.py
-│   ├── test_feature_engineering.py
-│   └── test_model.py
+├── tests/                       # Scaffold (to be populated)
 │
-├── models/                      # Saved model artifacts (.pkl / .joblib)
+├── models/                      # best_model.pkl (LightGBM, gitignored)
 │
-├── dashboard/                   # Interactive dashboard files
+├── dashboard/
+│   ├── credit_risk_pbix_design.md          # Full Power BI spec and DAX measures
+│   └── exports/                            # Export CSVs for dashboard ingestion
 │
 ├── reports/
-│   ├── figures/                 # All exported charts
-│   ├── model_card.md            # Model performance and limitations
-│   ├── fairness_report.md       # Bias assessment
-│   └── simulation_results.md    # Scenario comparison
+│   └── figures/                 # 30+ exported charts (EDA, modeling, SHAP, simulation)
 │
 ├── docs/
 │   └── project_plan.md          # Complete project blueprint
 │
-├── README.md                    # This file
 ├── requirements.txt             # Python dependencies
 └── LICENSE
 ```
 
 ---
 
-## Roadmap
+## Pipeline
 
 ```
-Business Understanding ──> Data Cleaning ──> EDA ──> Feature Engineering
-                                                          │
-                                                          ▼
-              Business Simulation <── Model Explainability <── Model Building
-                                                                    │
-                                                                    ▼
-                                                           Model Evaluation
-                                                                    │
-                                                                    ▼
-                                                              Dashboard
+Business Understanding -> EDA -> Feature Engineering -> Modeling
+                                                           │
+                                                           ▼
+              Dashboard Exports <-- Explainability <-- Business Simulation
 ```
 
 | Phase | Description | Key Output |
 |---|---|---|
-| **1. Business Understanding** | Frame the problem, define stakeholders, set success metrics | Problem statement, metric map |
-| **2. Data Cleaning** | Load, validate, and sanitize raw data | Clean DataFrames, quality report |
-| **3. EDA** | Explore patterns, risk drivers, and data quality | Visual analysis, key insights |
-| **4. Feature Engineering** | Aggregate multi-table data, create domain features | 200–300 feature flat table |
-| **5. Model Building** | Train, tune, and select best model (LogReg, RF, XGBoost, LightGBM) | Trained model, tuning logs |
-| **6. Model Evaluation** | Rigorous holdout evaluation, calibration, stability checks | AUC, Gini, KS, calibration plot |
-| **7. Model Explainability** | SHAP, partial dependence, fairness audit | Explanations, fairness report |
-| **8. Business Simulation** | Translate predictions to profit, optimize threshold, compare scenarios | Profit curves, policy memo |
-| **9. Dashboard** | Interactive risk portfolio explorer | Usable stakeholder dashboard |
+| **1. Business Understanding** | Frame the problem, define stakeholders, set success metrics | Problem statement, stakeholder map |
+| **2. EDA** | Explore patterns, risk drivers, and data quality | 30+ visualizations, key risk insights |
+| **3. Feature Engineering** | Clean, encode, create domain features | 182-feature flat table (Parquet) |
+| **4. Modeling** | Train, tune, and select best model (5 candidates) | LightGBM (AUC 0.768) |
+| **5. Explainability** | SHAP, PDP, permutation importance, force plots | Driver analysis, visual explanations |
+| **6. Business Simulation** | Profit simulation, threshold optimization, scenario comparison | Profit curves, policy comparison table |
+| **7. Dashboard** | Generate dashboard exports and design spec | 8 CSV/Parquet files, Power BI design doc |
 
 ---
 
-## Expected Results
+## Model Explainability Insights
 
-### Technical Outcomes
+**Top-5 features by SHAP importance:**
 
-| Metric | Target | Rationale |
-|---|---|---|
-| AUC-ROC | ≥ 0.80 | Industry-standard discriminative power |
-| Gini Coefficient | ≥ 0.60 | 2 × AUC − 1; common banking metric |
-| KS Statistic | ≥ 0.45 | Separation between default and repay distributions |
-| Precision at top 5% | ≥ 0.40 | Among highest-risk flagged applicants, at least 40% should actually default |
-| Calibration (Brier score) | < 0.08 | Predicted probabilities must match observed frequencies |
+1. `EXT_MEAN` - Mean of external credit sources (0.47 SHAP)
+2. `ANNUITY_RATE` - Annuity-to-income ratio (0.17)
+3. `AMT_GOODS_PRICE` - Loan goods price (0.14)
+4. `AMT_CREDIT` - Loan credit amount (0.07)
+5. `EXT_SOURCE_3` - Third external credit source (0.08)
 
-### Business Outcomes
+**Risk driver analysis during EDA:**
+- EXT_SOURCE_2 bottom decile: 18.35% default vs. top decile: 2.97% (6.2x risk differential)
+- Youngest applicants (18-25): 11.74% default vs. oldest (60+): 4.92% (2.4x)
 
-| Outcome | Description |
+---
+
+## Technical Stack
+
+| Component | Tools |
 |---|---|
-| **Profit-optimal threshold** | Identify the PD cutoff that maximizes total portfolio profit, not just minimizes defaults |
-| **Scenario comparison** | Quantify profit lift of model-based underwriting vs. current policy |
-| **Risk segmentation** | Produce 5 risk buckets (A–E) with distinct strategies for each |
-| **Fairness guardrails** | Disparate impact ratio within acceptable range; explainable model |
-
-### Portfolio Artifacts
-
-- 7 well-documented Jupyter notebooks
-- 10 reusable Python modules with unit tests
-- 1 interactive stakeholder dashboard
-- 3 written reports (model card, fairness, simulation)
-- Full version control history (Git)
+| Language | Python 3.10+ |
+| Data | pandas, numpy, pyarrow (Parquet) |
+| Modeling | scikit-learn, LightGBM, XGBoost, Logistic Regression, Decision Tree, Random Forest |
+| Explainability | SHAP |
+| Tuning | Optuna (configured in src/) |
+| Visualization | matplotlib, seaborn, SHAP force plots |
+| Dashboard | Power BI (design spec + CSV/Parquet exports) |
+| Environment | Jupyter notebooks, Git version control |
 
 ---
 
-*Started: July 2026. This project is a work in progress. See [`docs/project_plan.md`](docs/project_plan.md) for the full design document.*
+## Project Artifacts
+
+- **7 executed Jupyter notebooks** with full outputs and visualizations
+- **3 Python module design documents** (src/train.py, src/preprocess.py, src/evaluate.py)
+- **1 trained LightGBM model** saved as models/best_model.pkl
+- **30+ publication-quality figures** in reports/figures/
+- **8 dashboard export files** in dashboard/exports/ (CSV + Parquet)
+- **1 complete Power BI design document** with DAX measures and data model
+
+---
+
+## Getting Started
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Open the executed notebooks to explore results
+jupyter notebook execution/
+```
+
+### Data
+Download the [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/data) dataset from Kaggle and place CSV files in `data/raw/`. The feature engineering pipeline in `execution/03_feature_engineering.ipynb` handles loading, cleaning, and transformation.
+
+---
+
+## Status & Next Steps
+
+**Completed:** End-to-end pipeline execution from business understanding through dashboard exports, including model training, explainability, and business simulation with quantified profit impact.
+
+**Planned enhancements:**
+- Populate `src/` modules with runnable code (currently design-document skeletons)
+- Multi-table aggregation using bureau and previous application tables
+- Unit tests in `tests/`
+- Formal fairness assessment report
+- Model card for regulatory documentation
+
+---
+
+*Started: July 2026. See [docs/project_plan.md](docs/project_plan.md) for the full design document.*
