@@ -230,21 +230,6 @@ Business Understanding -> EDA -> Feature Engineering -> Modeling
 
 ---
 
-## Getting Started
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Open the executed notebooks to explore results
-jupyter notebook execution/
-```
-
-### Data
-Download the [Home Credit Default Risk](https://www.kaggle.com/competitions/home-credit-default-risk/data) dataset from Kaggle and place CSV files in `data/raw/`. The feature engineering pipeline in `execution/03_feature_engineering.ipynb` handles loading, cleaning, and transformation.
-
----
-
 ## Status & Next Steps
 
 **Completed:** End-to-end pipeline execution from business understanding through dashboard exports, including model training, explainability, and business simulation with quantified profit impact.
