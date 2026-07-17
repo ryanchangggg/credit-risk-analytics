@@ -36,14 +36,14 @@ lint: ## Run ruff linter on src/ and tests/
 
 reproduce: ## Re-run all notebooks in sequence using papermill
 	@echo "=== Reproducing full pipeline ==="
-	mkdir -p execution/_output
-	papermill execution/01_business_understanding.ipynb  execution/_output/01_business_understanding.ipynb
-	papermill execution/02_exploratory_data_analysis.ipynb execution/_output/02_exploratory_data_analysis.ipynb
-	papermill execution/03_feature_engineering.ipynb      execution/_output/03_feature_engineering.ipynb
-	papermill execution/04_modeling.ipynb                 execution/_output/04_modeling.ipynb
-	papermill execution/04_explainability.ipynb           execution/_output/04_explainability.ipynb
-	papermill execution/05_business_simulation.ipynb      execution/_output/05_business_simulation.ipynb
-	papermill execution/06_explainability_dashboard.ipynb execution/_output/06_explainability_dashboard.ipynb
+	mkdir -p notebooks/_output
+	papermill notebooks/01_business_understanding.ipynb  notebooks/_output/01_business_understanding.ipynb
+	papermill notebooks/02_exploratory_data_analysis.ipynb notebooks/_output/02_exploratory_data_analysis.ipynb
+	papermill notebooks/03_feature_engineering.ipynb      notebooks/_output/03_feature_engineering.ipynb
+	papermill notebooks/04_modeling.ipynb                 notebooks/_output/04_modeling.ipynb
+	papermill notebooks/04_explainability.ipynb           notebooks/_output/04_explainability.ipynb
+	papermill notebooks/05_business_simulation.ipynb      notebooks/_output/05_business_simulation.ipynb
+	papermill notebooks/06_explainability_dashboard.ipynb notebooks/_output/06_explainability_dashboard.ipynb
 	@echo "=== Pipeline reproduce complete ==="
 
 setup: install test ## Install dependencies and run tests

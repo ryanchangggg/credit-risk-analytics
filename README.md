@@ -17,7 +17,7 @@ pip install -r requirements.txt
 #    Download from: https://www.kaggle.com/competitions/home-credit-default-risk/data
 
 # 4. Explore the pipeline (executed notebooks with full outputs)
-jupyter notebook execution/
+jupyter notebook notebooks/
 
 # 5. Run tests
 make test
@@ -133,7 +133,7 @@ credit-risk-analytics/
 │   ├── raw/                     # application_train.csv (gitignored)
 │   └── processed/               # Parquet files: X_features, y_target, full_processed
 │
-├── execution/                   # Executed notebooks with full outputs
+├── notebooks/                   # Executed notebooks with full outputs
 │   ├── 01_business_understanding.ipynb     # Problem framing, stakeholder mapping
 │   ├── 02_exploratory_data_analysis.ipynb  # EDA, patterns, risk drivers
 │   ├── 03_feature_engineering.ipynb        # 182-feature pipeline

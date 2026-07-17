@@ -112,4 +112,4 @@ A formal fairness assessment has not been completed. Model features include `COD
 
 - Environment: Python 3.10+, LightGBM 4.0+, scikit-learn 1.3+
 - Inference: See `src/inference.py` for the scoring API
-- Training: See `execution/04_modeling.ipynb` for the full training pipeline
+- Training: See `notebooks/04_modeling.ipynb` for the full training pipeline
